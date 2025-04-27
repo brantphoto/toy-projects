@@ -1,0 +1,29 @@
+{
+  "name": "surfer",
+  "version": "0.1.0",
+  "description": "Quick Fastify servers for toy applications",
+  "main": "index.js",
+  "bin": {
+    "surfer": "./bin/surfer.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "fastify",
+    "server",
+    "toy",
+    "quickstart"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@fastify/cors": "^10.0.0",
+    "chalk": "^4.1.2",
+    "commander": "^11.1.0",
+    "fastify": "^5",
+    "zod": "^3.22.4",
+    "@fastify/formbody": "^8"
+  },
+  "packageManager": "pnpm@9.15.2+sha512.93e57b0126f0df74ce6bff29680394c0ba54ec47246b9cf321f0121d8d9bb03f750a705f24edc3c1180853afd7c2c3b94196d0a3d53d3e069d9e2793ef11f321"
+}
