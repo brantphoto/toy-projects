@@ -1,0 +1,1 @@
+A simple, AI-assisted htmx project, that uses the surfer todolist project also found in this repo. The point of the project was to learn more about how htmx COULD be used with json apis (not that that is the right thing to do).

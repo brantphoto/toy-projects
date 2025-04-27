@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="htmx-config" content='{"selfRequestsOnly":false}'>
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body hx-ext="client-side-templates">
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <script src="https://unpkg.com/htmx-ext-client-side-templates@2.0.0/client-side-templates.js"></script>
+    <script src="https://unpkg.com/mustache@latest"></script>
+
+    <!-- Simplified form - standard form submission -->
+    <form class="mb-4 p-4"
+          hx-post="http://localhost:3000/todos"
+          hx-request='{"noHeaders": true}'
+          hx-swap="none"
+    >
+        <div class="flex gap-2">
+            <input
+                type="text"
+                name="text"
+                placeholder="Enter a new todo..."
+                class="flex-1 px-4 py-2 border rounded-lg"
+                required
+            />
+            <button
+                type="submit"
+                class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            >
+                Add Todo
+            </button>
+        </div>
+    </form>
+
+    <!-- Simplified todos container -->
+    <div id="todos-container"
+      hx-get="http://localhost:3000/todos" 
+      hx-request='{"noHeaders": true}' 
+      hx-trigger="load, refreshList"
+      hx-swap="innerHTML"
+      hx-target="#content"
+      mustache-array-template="cards"
+    >
+      <div id="content">
+        Loading...
+      </div>
+    </div>
+    
+    <template id="cards">
+      {{#data}}
+      <div> TODO: {{text}}</div>
+      {{/data}}
+      {{^data}}
+        No Todos! Add one!
+      {{/data}}
+    </template>
+
+    <!-- The script that makes the refresh work -->
+    <script>
+      document.body.addEventListener('htmx:afterRequest', function(evt) {
+        if (evt.detail.elt.tagName === 'FORM') {
+          const todosContainer = document.querySelector('#todos-container');
+          htmx.trigger(todosContainer, 'refreshList');
+          evt.detail.elt.reset(); // Reset the form
+        }
+      });
+    </script>
+</body>
+</html>
